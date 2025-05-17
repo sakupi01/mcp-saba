@@ -21,7 +21,8 @@
     "include": [
       "LICENSE",
       "README.md",
-      "src/**/*.ts"
+      "src/**/*.ts",
+      "index.ts"
     ]
   },
   "imports": {
