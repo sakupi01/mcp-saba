@@ -1,7 +1,8 @@
 # @sakupi01/mcp-saba
 
-[![JSR](https://jsr.io/@sakupi01/mcp-saba)](https://jsr.io/@sakupi01/mcp-saba)
-![CI](https://github.com/sakupi01/mcp-saba/workflows/Node%20CI/badge.svg)
+[![JSR](https://jsr.io/badges/@sakupi01/mcp-saba)](https://jsr.io/@sakupi01/mcp-saba)
+[![Publish](https://github.com/sakupi01/mcp-saba/actions/workflows/publish.yml/badge.svg)](https://github.com/sakupi01/mcp-saba/actions/workflows/publish.yml)
+[![Deploy](https://github.com/sakupi01/mcp-saba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sakupi01/mcp-saba/actions/workflows/deploy.yml)
 
 An MCP Server for blog search functionality developed /w Deno!
 
