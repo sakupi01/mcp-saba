@@ -16,7 +16,7 @@
     "url": "https://github.com/sakupi01/mcp-saba.git"
   },
   "author": "sakupi01",
-  "exports": "./src/mod.ts",
+  "exports": "./index.ts",
   "publish": {
     "include": [
       "LICENSE",
