@@ -5,6 +5,7 @@ import express from "express";
 import process from "node:process";
 import { createSakupi01McpServer } from "./server.ts";
 import type { Sakupi01McpServer } from "./types.ts";
+import type { Server, IncomingMessage, ServerResponse } from "node:http";
 
 const DEFAULT_PORT = process.env["PORT"] ? parseInt(process.env["PORT"]) : 8000;
 const MCP_ENDPOINT = "/mcp";
@@ -121,7 +122,10 @@ function createCleanupFunction(
 export async function runServer({
   port = DEFAULT_PORT,
   mcpServer = server,
-}: ServerConfig = {}) {
+}: ServerConfig = {}): Promise<{
+    server: Server<typeof IncomingMessage, typeof ServerResponse>;
+    cleanup: () => Promise<void>;
+}> {
   // Setup application and transport
   const app = setupExpressApp();
   const transport = setupTransport();
