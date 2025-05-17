@@ -24,14 +24,6 @@
       "src/**/*.ts"
     ]
   },
-  "imports": {
-    "@cloudflare/workers-types": "npm:@cloudflare/workers-types@^4.20250510.0",
-    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.11.1",
-    "agents": "npm:agents@^0.0.82",
-    "express": "npm:express@^5.1.0",
-    "zod": "npm:zod@^3.24.4",
-    "standard-version": "npm:standard-version@^9.5.0"
-  },
   "tasks": {
     "prep": "deno fmt && deno lint --fix && deno check ./src/mod.ts",
     "start": "deno run -A ./src/mod.ts",

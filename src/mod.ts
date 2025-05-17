@@ -1,5 +1,5 @@
 #!/usr/bin/env -S deno run -A
-import type { McpServer } from "npm:@modelcontextprotocol/sdk@^1.11.3/server/mcp.js";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import express from "express";
 import process from "node:process";

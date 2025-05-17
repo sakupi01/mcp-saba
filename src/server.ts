@@ -1,4 +1,4 @@
-import { McpServer } from "npm:@modelcontextprotocol/sdk@^1.11.3/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { Blog } from "./types.ts";
 import { registerBlogSearchTool } from "./tools/blog-search.ts";
 

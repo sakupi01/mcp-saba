@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250517.0",
+    "standard-version": "^9.5.0",
+    "wangler": "^0.0.7"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.4",
+    "agents": "^0.0.88",
+    "express": "^5.1.0",
+    "zod": "^3.24.4"
+  },
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types"
+  }
+}
