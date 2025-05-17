@@ -6,116 +6,165 @@ import { type Sakupi01McpServer, server as createSakupi01McpServer } from "./src
 import process from "node:process";
 
 const DEFAULT_PORT = process.env["PORT"] ? parseInt(process.env["PORT"]) : 8000;
+const MCP_ENDPOINT = "/mcp";
+
+const ERROR_RESPONSES = {
+  methodNotAllowed: {
+    jsonrpc: "2.0",
+    error: {
+      code: -32000,
+      message: "Method not allowed.",
+    },
+    id: null,
+  },
+  internalServerError: {
+    jsonrpc: "2.0",
+    error: {
+      code: -32603,
+      message: "Internal server error",
+    },
+    id: null,
+  },
+};
+
 /**
- * Function to start the server
- * @param configs Server configuration options
- * @returns Server instance and cleanup function
+ * Server configuration interface
  */
-export const runServer = async ({
-  port = DEFAULT_PORT,
-  mcpServer = createSakupi01McpServer,
-}: {
+interface ServerConfig {
   port?: number;
   mcpServer?: Sakupi01McpServer;
-} = {}) => {
+}
+
+/**
+ * Configure and set up the Express application
+ */
+function setupExpressApp() {
   const app = express();
   app.use(express.json());
+  return app;
+}
 
-  const transport: StreamableHTTPServerTransport = new StreamableHTTPServerTransport({
-    // Specify undefined for stateless servers
-    sessionIdGenerator: undefined,
+/**
+ * Configure and set up the transport layer
+ */
+function setupTransport() {
+  return new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined, // For stateless servers
   });
+}
 
-  // Connect MCP server with the transport
-  await mcpServer.connect(transport);
-
-  // Handle POST requests
-  app.post("/mcp", async (req, res) => {
+/**
+ * Set up route handlers for the Express application
+ */
+function setupRoutes(app: express.Express, transport: StreamableHTTPServerTransport) {
+  // POST handler for MCP requests
+  app.post(MCP_ENDPOINT, async (req, res) => {
     console.error("Received MCP request:", req.body);
     try {
       await transport.handleRequest(req, res, req.body);
     } catch (error) {
       console.error("Error handling MCP request:", error);
       if (!res.headersSent) {
-        res.status(500).json({
-          jsonrpc: "2.0",
-          error: {
-            code: -32603,
-            message: "Internal server error",
-          },
-          id: null,
-        });
+        res.status(500).json(ERROR_RESPONSES.internalServerError);
       }
     }
   });
 
-  // GET requests need to be implemented for compatibility with SSE endpoints
-  // If not implementing SSE endpoints, return 405 Method Not Allowed
-  app.get("/mcp", async (_req, res) => {
+  // GET handler (for SSE compatibility)
+  app.get(MCP_ENDPOINT, (_req, res) => {
     console.error("Received GET MCP request");
-    res.writeHead(405).end(
-      JSON.stringify({
-        jsonrpc: "2.0",
-        error: {
-          code: -32000,
-          message: "Method not allowed.",
-        },
-        id: null,
-      }),
-    );
+    res.writeHead(405).end(JSON.stringify(ERROR_RESPONSES.methodNotAllowed));
   });
 
-  // DELETE requests need to be implemented for stateful servers
-  app.delete("/mcp", async (_req, res) => {
+  // DELETE handler (for stateful servers)
+  app.delete(MCP_ENDPOINT, (_req, res) => {
     console.error("Received DELETE MCP request");
-    res.writeHead(405).end(
-      JSON.stringify({
-        jsonrpc: "2.0",
-        error: {
-          code: -32000,
-          message: "Method not allowed.",
-        },
-        id: null,
-      }),
-    );
+    res.writeHead(405).end(JSON.stringify(ERROR_RESPONSES.methodNotAllowed));
   });
+}
 
-  // Start the server
-  const server = app.listen(port, () => {
-    console.error(`Server is running on http://localhost:${port}/mcp`);
-  });
-
-  // Return cleanup function
-  const cleanup = async () => {
+/**
+ * Create a cleanup function for graceful server shutdown
+ */
+function createCleanupFunction(
+  server: ReturnType<typeof express.application.listen>,
+  transport: StreamableHTTPServerTransport,
+  mcpServer: Sakupi01McpServer
+) {
+  return async () => {
     try {
-      console.error(`Closing transport`);
+      console.error("Closing transport");
       await transport.close();
     } catch (error) {
-      console.error(`Error closing transport:`, error);
+      console.error("Error closing transport:", error);
     }
 
     await mcpServer.close();
+    
     await new Promise<void>((resolve, reject) => {
-      server.close((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
+      server.close((err) => err ? reject(err) : resolve());
     });
+    
     console.error("Server shutdown complete");
   };
+}
 
-  return {
-    server,
-    cleanup,
-  };
-};
+/**
+ * Start the server with the given configuration
+ * @param config Server configuration options
+ * @returns Server instance and cleanup function
+ */
+export async function runServer({
+  port = DEFAULT_PORT,
+  mcpServer = createSakupi01McpServer,
+}: ServerConfig = {}) {
+  // Setup application and transport
+  const app = setupExpressApp();
+  const transport = setupTransport();
+  
+  // Connect MCP server with transport
+  await mcpServer.connect(transport);
+  
+  // Setup route handlers
+  setupRoutes(app, transport);
+  
+  // Start the server
+  const server = app.listen(port, () => {
+    console.error(`Server is running on http://localhost:${port}${MCP_ENDPOINT}`);
+  });
+  
+  // Create cleanup function
+  const cleanup = createCleanupFunction(server, transport, mcpServer);
+  
+  return { server, cleanup };
+}
 
-const { cleanup } = await runServer().catch((err) => {
-  console.error("Error setting up server:", err);
-  process.exit(1);
-});
-process.on("SIGINT", async () => {
-  console.error("Shutting down MCP server...");
-  await cleanup();
-  process.exit(0);
-});
+/**
+ * Handle process signals and initialize server
+ */
+async function main() {
+  try {
+    const { cleanup } = await runServer();
+    
+    // Handle graceful shutdown
+    process.on("SIGINT", async () => {
+      console.error("Shutting down MCP server...");
+      await cleanup();
+      process.exit(0);
+    });
+    
+    // Additional signal handlers could be added here
+    process.on("SIGTERM", async () => {
+      console.error("Received SIGTERM, shutting down MCP server...");
+      await cleanup();
+      process.exit(0);
+    });
+    
+  } catch (err) {
+    console.error("Error setting up server:", err);
+    process.exit(1);
+  }
+}
+
+// Execute main function
+await main();
