@@ -1,6 +1,6 @@
 {
   "name": "@sakupi01/mcp-saba",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "sakupi01.com MCP Server",
   "keywords": [
     "mcp",
@@ -52,23 +52,37 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true,
-    "types": ["npm:@types/express@5.0.1"]
+    "types": [
+      "npm:@types/express@5.0.1"
+    ]
   },
   "bench": {
-    "include": ["bench/**/*.ts"]
+    "include": [
+      "bench/**/*.ts"
+    ]
   },
   "fmt": {
-    "include": ["src/**/*.ts", "test/**/*.ts", "**/*.json"],
+    "include": [
+      "src/**/*.ts",
+      "test/**/*.ts",
+      "**/*.json"
+    ],
     "lineWidth": 100,
     "indentWidth": 2
   },
   "lint": {
-    "include": ["src/**/*.ts"],
+    "include": [
+      "src/**/*.ts"
+    ],
     "rules": {
-      "exclude": ["require-await"]
+      "exclude": [
+        "require-await"
+      ]
     }
   },
   "test": {
-    "include": ["test/**/*.ts"]
+    "include": [
+      "test/**/*.ts"
+    ]
   }
 }

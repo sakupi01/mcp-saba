@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/sakupi01/mcp-saba/compare/v2.0.2...v2.1.0) (2025-05-17)
+
+
+### Features
+
+* add deno.json version auto update feat ([f0339f2](https://github.com/sakupi01/mcp-saba/commit/f0339f2e5843075fbe5f39d6b8c38801c720f377))
+
 ### [2.0.2](https://github.com/sakupi01/mcp-saba/compare/v2.0.1...v2.0.2) (2025-05-17)
 
 
