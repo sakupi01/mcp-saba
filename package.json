@@ -15,5 +15,6 @@
     "dev": "wrangler dev",
     "start": "wrangler dev",
     "cf-typegen": "wrangler types"
-  }
+  },
+  "packageManager": "pnpm@10.6.4"
 }
