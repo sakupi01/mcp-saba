@@ -5,36 +5,36 @@ import express from "express";
 import process from "node:process";
 import { createSakupi01McpServer } from "./server.ts";
 import type { Sakupi01McpServer } from "./types.ts";
-import type { Server, IncomingMessage, ServerResponse } from "node:http";
+import type { IncomingMessage, Server, ServerResponse } from "node:http";
 
 const DEFAULT_PORT = process.env["PORT"] ? parseInt(process.env["PORT"]) : 8000;
 const MCP_ENDPOINT = "/mcp";
 
 const ERROR_RESPONSES = {
-    methodNotAllowed: {
-        jsonrpc: "2.0",
-        error: {
-            code: -32000,
-            message: "Method not allowed.",
-        },
-        id: null,
+  methodNotAllowed: {
+    jsonrpc: "2.0",
+    error: {
+      code: -32000,
+      message: "Method not allowed.",
     },
-    internalServerError: {
-        jsonrpc: "2.0",
-        error: {
-            code: -32603,
-            message: "Internal server error",
-        },
-        id: null,
+    id: null,
+  },
+  internalServerError: {
+    jsonrpc: "2.0",
+    error: {
+      code: -32603,
+      message: "Internal server error",
     },
+    id: null,
+  },
 };
 
 /**
  * Server configuration interface
-*/
+ */
 interface ServerConfig {
-    port?: number;
-    mcpServer?: Sakupi01McpServer;
+  port?: number;
+  mcpServer?: Sakupi01McpServer;
 }
 
 // Create and start the server
@@ -42,20 +42,20 @@ const server: McpServer = createSakupi01McpServer();
 
 /**
  * Configure and set up the Express application
-*/
+ */
 function setupExpressApp() {
-    const app = express();
-    app.use(express.json());
-    return app;
+  const app = express();
+  app.use(express.json());
+  return app;
 }
 
 /**
  * Configure and set up the transport layer
-*/
+ */
 function setupTransport() {
-    return new StreamableHTTPServerTransport({
-        sessionIdGenerator: undefined, // For stateless servers
-    });
+  return new StreamableHTTPServerTransport({
+    sessionIdGenerator: undefined, // For stateless servers
+  });
 }
 
 /**
@@ -94,7 +94,7 @@ function setupRoutes(app: express.Express, transport: StreamableHTTPServerTransp
 function createCleanupFunction(
   server: ReturnType<typeof express.application.listen>,
   transport: StreamableHTTPServerTransport,
-  mcpServer: Sakupi01McpServer
+  mcpServer: Sakupi01McpServer,
 ) {
   return async () => {
     try {
@@ -105,11 +105,11 @@ function createCleanupFunction(
     }
 
     await mcpServer.close();
-    
+
     await new Promise<void>((resolve, reject) => {
       server.close((err) => err ? reject(err) : resolve());
     });
-    
+
     console.error("Server shutdown complete");
   };
 }
@@ -123,27 +123,27 @@ export async function runServer({
   port = DEFAULT_PORT,
   mcpServer = server,
 }: ServerConfig = {}): Promise<{
-    server: Server<typeof IncomingMessage, typeof ServerResponse>;
-    cleanup: () => Promise<void>;
+  server: Server<typeof IncomingMessage, typeof ServerResponse>;
+  cleanup: () => Promise<void>;
 }> {
   // Setup application and transport
   const app = setupExpressApp();
   const transport = setupTransport();
-  
+
   // Connect MCP server with transport
   await mcpServer.connect(transport);
-  
+
   // Setup route handlers
   setupRoutes(app, transport);
-  
+
   // Start the server
   const server = app.listen(port, () => {
     console.error(`Server is running on http://localhost:${port}${MCP_ENDPOINT}`);
   });
-  
+
   // Create cleanup function
   const cleanup = createCleanupFunction(server, transport, mcpServer);
-  
+
   return { server, cleanup };
 }
 
@@ -153,21 +153,20 @@ export async function runServer({
 async function main() {
   try {
     const { cleanup } = await runServer();
-    
+
     // Handle graceful shutdown
     process.on("SIGINT", async () => {
       console.error("Shutting down MCP server...");
       await cleanup();
       process.exit(0);
     });
-    
+
     // Additional signal handlers could be added here
     process.on("SIGTERM", async () => {
       console.error("Received SIGTERM, shutting down MCP server...");
       await cleanup();
       process.exit(0);
     });
-    
   } catch (err) {
     console.error("Error setting up server:", err);
     process.exit(1);

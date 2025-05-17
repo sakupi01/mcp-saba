@@ -59,37 +59,37 @@ Deno.test("should search blogs with query", async () => {
     });
 
     assertEquals(response.content, [
-  {
-    type: "text",
-    text: "{\n" +
-      '  "total": 1,\n' +
-      '  "offset": 0,\n' +
-      '  "limit": 2,\n' +
-      '  "order": "desc",\n' +
-      '  "query": {\n' +
-      '    "original": "Test",\n' +
-      '    "keywords": [\n' +
-      '      "test"\n' +
-      "    ],\n" +
-      '    "exactPhrases": []\n' +
-      "  },\n" +
-      '  "results": [\n' +
-      "    {\n" +
-      '      "title": "🎄Open UI Advent Calendar: Day 11 / Customizable Select Element Ep.9",\n' +
-      '      "pubDate": "2024-12-11T00:00:00.000Z",\n' +
-      '      "description": "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker-icon`のデフォルトスタイルはどうやって決まったのか",\n' +
-      '      "link": "https://blog.sakupi01.com/dev/articles/2024-openui-advent-11/",\n' +
-      '      "content": "Test Test",\n' +
-      '      "tags": [\n' +
-      '        "openui",\n' +
-      '        "advent calendar"\n' +
-      "      ],\n" +
-      '      "score": 2\n' +
-      "    }\n" +
-      "  ]\n" +
-      "}"
-  }
-]);
+      {
+        type: "text",
+        text: "{\n" +
+          '  "total": 1,\n' +
+          '  "offset": 0,\n' +
+          '  "limit": 2,\n' +
+          '  "order": "desc",\n' +
+          '  "query": {\n' +
+          '    "original": "Test",\n' +
+          '    "keywords": [\n' +
+          '      "test"\n' +
+          "    ],\n" +
+          '    "exactPhrases": []\n' +
+          "  },\n" +
+          '  "results": [\n' +
+          "    {\n" +
+          '      "title": "🎄Open UI Advent Calendar: Day 11 / Customizable Select Element Ep.9",\n' +
+          '      "pubDate": "2024-12-11T00:00:00.000Z",\n' +
+          '      "description": "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker-icon`のデフォルトスタイルはどうやって決まったのか",\n' +
+          '      "link": "https://blog.sakupi01.com/dev/articles/2024-openui-advent-11/",\n' +
+          '      "content": "Test Test",\n' +
+          '      "tags": [\n' +
+          '        "openui",\n' +
+          '        "advent calendar"\n' +
+          "      ],\n" +
+          '      "score": 2\n' +
+          "    }\n" +
+          "  ]\n" +
+          "}",
+      },
+    ]);
   } finally {
     client.close();
     await cleanup();
