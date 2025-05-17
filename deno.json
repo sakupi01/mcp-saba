@@ -1,6 +1,6 @@
 {
   "name": "@sakupi01/mcp-saba",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "sakupi01.com MCP Server",
   "keywords": [
     "mcp",
@@ -25,9 +25,11 @@
     ]
   },
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "dev": "deno run --watch main.ts",
+    "release": "standard-version"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1"
+    "@std/assert": "jsr:@std/assert@1",
+    "standard-version": "npm:standard-version@^9.5.0"
   }
 }
