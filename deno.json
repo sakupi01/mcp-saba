@@ -26,6 +26,7 @@
   },
   "imports": {
     "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.11.3",
+    "agents": "npm:agents@^0.0.88",
     "express": "npm:express@^5.1.0",
     "zod": "npm:zod@^3.24.3",
     "standard-version": "npm:standard-version@^9.5.0"
