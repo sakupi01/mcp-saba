@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/sakupi01/mcp-saba/compare/v2.0.0...v2.0.1) (2025-05-17)
+
+
+### Bug Fixes
+
+* file export path ([b1e1aed](https://github.com/sakupi01/mcp-saba/commit/b1e1aed7c01595468893c1e6bda846b6ea84527f))
+
 ## 2.0.0 (2025-05-17)
 
 
