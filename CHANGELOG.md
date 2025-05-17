@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/sakupi01/mcp-saba/compare/v2.1.0...v3.0.0) (2025-05-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* manage deps in package.json
+
+### Features
+
+* deploy script ([b7b2e5a](https://github.com/sakupi01/mcp-saba/commit/b7b2e5a7ee8ac08c9664552a04ac52b63565fda5))
+* manage deps in package.json ([66aedec](https://github.com/sakupi01/mcp-saba/commit/66aedec1738535e2c54ac0554caaacd4d395e0df))
+* remote mcp script ([759c516](https://github.com/sakupi01/mcp-saba/commit/759c51675ceec81663e1bb5cbf1b6ddc98891d1a))
+
 ## [2.1.0](https://github.com/sakupi01/mcp-saba/compare/v2.0.2...v2.1.0) (2025-05-17)
 
 
