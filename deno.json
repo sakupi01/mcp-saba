@@ -16,13 +16,12 @@
     "url": "https://github.com/sakupi01/mcp-saba.git"
   },
   "author": "sakupi01",
-  "exports": "./index.ts",
+  "exports": "./mod.ts",
   "publish": {
     "include": [
       "LICENSE",
       "README.md",
-      "src/**/*.ts",
-      "index.ts"
+      "src/**/*.ts"
     ]
   },
   "imports": {
@@ -32,11 +31,11 @@
     "standard-version": "npm:standard-version@^9.5.0"
   },
   "tasks": {
-    "prep": "deno fmt && deno lint --fix && deno check index.ts",
-    "start": "deno run -A index.ts",
-    "dev": "deno run -A --watch index.ts",
+    "prep": "deno fmt && deno lint --fix && deno check ./src/mod.ts",
+    "start": "deno run -A ./src/mod.ts",
+    "dev": "deno run -A --watch ./src/mod.ts",
     "ci": "deno task prep",
-    "compile": "deno compile -A index.ts",
+    "compile": "deno compile -A ./src/mod.ts",
     "test": "deno test --allow-env --allow-net",
     "release": "standard-version"
   },
@@ -59,12 +58,12 @@
     "include": ["bench/**/*.ts"]
   },
   "fmt": {
-    "include": ["index.ts", "src/**/*.ts", "test/**/*.ts", "**/*.json"],
+    "include": ["src/**/*.ts", "test/**/*.ts", "**/*.json"],
     "lineWidth": 100,
     "indentWidth": 2
   },
   "lint": {
-    "include": ["index.ts", "src/**/*.ts"],
+    "include": ["src/**/*.ts"],
     "rules": {
       "exclude": ["require-await"]
     }
