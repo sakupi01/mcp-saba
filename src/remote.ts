@@ -12,14 +12,12 @@ export default {
   // @ts-ignore < Ignore the error for now >
   fetch(request: Request, env: Env, ctx: ExecutionContext) {
     const url = new URL(request.url);
-    console.log("Request URL:", url);
 
     if (url.pathname === "/sse" || url.pathname === "/sse/message") {
       return Sakupi01MCP.serveSSE("/sse").fetch(request, env, ctx);
     }
 
     if (url.pathname === "/mcp") {
-      console.log("here");
       return Sakupi01MCP.serve("/mcp").fetch(request, env, ctx);
     }
 
