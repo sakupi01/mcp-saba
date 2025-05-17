@@ -1,0 +1,18 @@
+[
+  {
+    "title": "🎄Open UI Advent Calendar: Day 11 / Customizable Select Element Ep.9",
+    "pubDate": "2024-12-11T00:00:00.000Z",
+    "description": "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker-icon`のデフォルトスタイルはどうやって決まったのか",
+    "link": "https://blog.sakupi01.com/dev/articles/2024-openui-advent-11/",
+    "content": "Test Test",
+    "tags": ["openui", "advent calendar"]
+  },
+  {
+    "title": "🎄Open UI Advent Calendar: Day 1 / Customizable Select Element Ep.9",
+    "pubDate": "2024-12-11T00:00:00.000Z",
+    "description": "Customizable Select Elementの関連仕様:  `appearance: base-select;` - `::picker-icon`のデフォルトスタイルはどうやって決まったのか",
+    "link": "https://blog.sakupi01.com/dev/articles/2024-openui-advent-11/",
+    "content": "Hoge Hoge",
+    "tags": ["openui", "advent calendar"]
+  }
+]

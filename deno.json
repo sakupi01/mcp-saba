@@ -16,7 +16,7 @@
     "url": "https://github.com/sakupi01/mcp-saba.git"
   },
   "author": "sakupi01",
-  "exports": "./src/mod.ts",
+  "exports": "./mod.ts",
   "publish": {
     "include": [
       "LICENSE",
@@ -24,12 +24,51 @@
       "src/**/*.ts"
     ]
   },
+  "imports": {
+    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.11.3",
+    "express": "npm:express@^5.1.0",
+    "zod": "npm:zod@^3.24.3",
+    "standard-version": "npm:standard-version@^9.5.0"
+  },
   "tasks": {
-    "dev": "deno run --watch main.ts",
+    "prep": "deno fmt && deno lint --fix && deno check ./src/mod.ts",
+    "start": "deno run -A ./src/mod.ts",
+    "dev": "deno run -A --watch ./src/mod.ts",
+    "ci": "deno task prep",
+    "compile": "deno compile -A ./src/mod.ts",
+    "test": "deno test --allow-env --allow-net",
     "release": "standard-version"
   },
-  "imports": {
-    "@std/assert": "jsr:@std/assert@1",
-    "standard-version": "npm:standard-version@^9.5.0"
+  "compilerOptions": {
+    "strict": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "verbatimModuleSyntax": true,
+    "types": ["npm:@types/express@5.0.1"]
+  },
+  "bench": {
+    "include": ["bench/**/*.ts"]
+  },
+  "fmt": {
+    "include": ["src/**/*.ts", "test/**/*.ts", "**/*.json"],
+    "lineWidth": 100,
+    "indentWidth": 2
+  },
+  "lint": {
+    "include": ["src/**/*.ts"],
+    "rules": {
+      "exclude": ["require-await"]
+    }
+  },
+  "test": {
+    "include": ["test/**/*.ts"]
   }
 }
