@@ -79,5 +79,6 @@
     "include": [
       "test/**/*.ts"
     ]
-  }
+  },
+  "nodeModulesDir": "auto"
 }
