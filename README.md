@@ -3,11 +3,13 @@
 [![JSR](https://jsr.io/badges/@sakupi01/mcp-saba)](https://jsr.io/@sakupi01/mcp-saba)
 [![Publish](https://github.com/sakupi01/mcp-saba/actions/workflows/publish.yml/badge.svg)](https://github.com/sakupi01/mcp-saba/actions/workflows/publish.yml)
 [![Deploy](https://github.com/sakupi01/mcp-saba/actions/workflows/deploy.yml/badge.svg)](https://github.com/sakupi01/mcp-saba/actions/workflows/deploy.yml)
+[![Publish Docker image](https://github.com/sakupi01/mcp-saba/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/sakupi01/mcp-saba/actions/workflows/docker-publish.yml)
 
 An MCP Server for blog search functionality developed /w Deno!
 
 Available as Local Package and Remote Server.
 
+- Docker Image: [sakupi/mcp-saba](https://hub.docker.com/r/sakupi/mcp-saba)
 - Package: [@sakupi01/mcp-saba](https://jsr.io/@sakupi01/mcp-saba)
 - Remote Server: [https://mcp.sakupi01.com/mcp](https://mcp.sakupi01.com/mcp)
 
@@ -77,6 +79,9 @@ Add the following to your VS Code settings.json:
 1. Start the local MCP server in a terminal:
 
    ```bash
+   # Using docker image
+   docker run -i --rm sakupi/mcp-saba
+   
    # Using npx
    npx @sakupi01/mcp-saba
    
@@ -87,6 +92,27 @@ Add the following to your VS Code settings.json:
 2. Open VS Code Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
 3. Run "MCP: Add Server..."
 4. Enter `http://localhost:8000/mcp` as the server URL
+
+#### Option 3: Using Docker Image
+
+To use Docker Image, add the following style of setting to your Host:.
+For example, `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "@sakupi01.com/mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "sakupi/mcp-saba"
+      ]
+    }
+  }
+}
+```
 
 ## Available Tools
 
@@ -134,7 +160,7 @@ Multiple keywords separated by spaces are treated as OR conditions.
 Install dependencies and run tests:
 
 ```bash
-pnpm test
+deno test
 ```
 
 ## Changelog
