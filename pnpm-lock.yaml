@@ -12,8 +12,8 @@ importers:
         specifier: ^1.11.4
         version: 1.11.4
       agents:
-        specifier: ^0.0.88
-        version: 0.0.88(@cloudflare/workers-types@4.20250517.0)(react@19.1.0)
+        specifier: ^0.0.93
+        version: 0.0.93(@cloudflare/workers-types@4.20250517.0)(react@19.1.0)
       express:
         specifier: ^5.1.0
         version: 5.1.0
@@ -430,13 +430,13 @@ packages:
   add-stream@1.0.0:
     resolution: {integrity: sha512-qQLMr+8o0WC4FZGQTcJiKBVC59JylcPSrTtk6usvmIDFUOCKegapy1VHQwRbFMOFyb/inzUVqHs+eMYKDM1YeQ==}
 
-  agents@0.0.88:
-    resolution: {integrity: sha512-ysQ3LMONALxx1VL0X/Tq49EzfuuLj1SHfztCCIfAX8hVtYw2Jr9rytnM94lZQ29yFFqmcIKWR+D13j/l7Cyf8A==}
+  agents@0.0.93:
+    resolution: {integrity: sha512-W25kx492Txn5XYY9gx2YBhGmfC8C/N3JQzfjbmq9GjhYtAFCsJdIw6C5xbLt/ev2x3Uor/8XMHXYiw/2YbTSkQ==}
     peerDependencies:
       react: '*'
 
-  ai@4.3.15:
-    resolution: {integrity: sha512-TYKRzbWg6mx/pmTadlAEIhuQtzfHUV0BbLY72+zkovXwq/9xhcH24IlQmkyBpElK6/4ArS0dHdOOtR1jOPVwtg==}
+  ai@4.3.16:
+    resolution: {integrity: sha512-KUDwlThJ5tr2Vw0A1ZkbDKNME3wzWhuVfAOwIvFUzl1TPVDFAXDFTXio3p+jaKneB+dKNCvFFlolYmmgHttG1g==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
@@ -1633,35 +1633,38 @@ packages:
   zod@3.24.4:
     resolution: {integrity: sha512-OdqJE9UDRPwWsrHjLN2F8bPxvwJBK22EHLWtanu0LSYr5YqzsaaW3RMgmjwr8Rypg5k+meEJdSPXJZXE/yqOMg==}
 
+  zod@3.25.28:
+    resolution: {integrity: sha512-/nt/67WYKnr5by3YS7LroZJbtcCBurDKKPBPWWzaxvVCGuG/NOsiKkrjoOhI8mJ+SQUXEbUzeB3S+6XDUEEj7Q==}
+
 snapshots:
 
-  '@ai-sdk/provider-utils@2.2.8(zod@3.24.4)':
+  '@ai-sdk/provider-utils@2.2.8(zod@3.25.28)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
       nanoid: 3.3.11
       secure-json-parse: 2.7.0
-      zod: 3.24.4
+      zod: 3.25.28
 
   '@ai-sdk/provider@1.1.3':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@1.2.12(react@19.1.0)(zod@3.24.4)':
+  '@ai-sdk/react@1.2.12(react@19.1.0)(zod@3.25.28)':
     dependencies:
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.24.4)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.24.4)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.28)
+      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.28)
       react: 19.1.0
       swr: 2.3.3(react@19.1.0)
       throttleit: 2.1.0
     optionalDependencies:
-      zod: 3.24.4
+      zod: 3.25.28
 
-  '@ai-sdk/ui-utils@1.2.11(zod@3.24.4)':
+  '@ai-sdk/ui-utils@1.2.11(zod@3.25.28)':
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.24.4)
-      zod: 3.24.4
-      zod-to-json-schema: 3.24.5(zod@3.24.4)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.28)
+      zod: 3.25.28
+      zod-to-json-schema: 3.24.5(zod@3.25.28)
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -1910,29 +1913,29 @@ snapshots:
 
   add-stream@1.0.0: {}
 
-  agents@0.0.88(@cloudflare/workers-types@4.20250517.0)(react@19.1.0):
+  agents@0.0.93(@cloudflare/workers-types@4.20250517.0)(react@19.1.0):
     dependencies:
       '@modelcontextprotocol/sdk': 1.11.4
-      ai: 4.3.15(react@19.1.0)(zod@3.24.4)
+      ai: 4.3.16(react@19.1.0)(zod@3.25.28)
       cron-schedule: 5.0.4
       nanoid: 5.1.5
       partyserver: 0.0.71(@cloudflare/workers-types@4.20250517.0)
       partysocket: 1.1.4
       react: 19.1.0
-      zod: 3.24.4
+      zod: 3.25.28
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - supports-color
 
-  ai@4.3.15(react@19.1.0)(zod@3.24.4):
+  ai@4.3.16(react@19.1.0)(zod@3.25.28):
     dependencies:
       '@ai-sdk/provider': 1.1.3
-      '@ai-sdk/provider-utils': 2.2.8(zod@3.24.4)
-      '@ai-sdk/react': 1.2.12(react@19.1.0)(zod@3.24.4)
-      '@ai-sdk/ui-utils': 1.2.11(zod@3.24.4)
+      '@ai-sdk/provider-utils': 2.2.8(zod@3.25.28)
+      '@ai-sdk/react': 1.2.12(react@19.1.0)(zod@3.25.28)
+      '@ai-sdk/ui-utils': 1.2.11(zod@3.25.28)
       '@opentelemetry/api': 1.9.0
       jsondiffpatch: 0.6.0
-      zod: 3.24.4
+      zod: 3.25.28
     optionalDependencies:
       react: 19.1.0
 
@@ -3198,6 +3201,12 @@ snapshots:
     dependencies:
       zod: 3.24.4
 
+  zod-to-json-schema@3.24.5(zod@3.25.28):
+    dependencies:
+      zod: 3.25.28
+
   zod@3.22.3: {}
 
   zod@3.24.4: {}
+
+  zod@3.25.28: {}
