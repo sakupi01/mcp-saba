@@ -47,7 +47,7 @@
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true,
     "types": [
-      "npm:@types/express@5.0.1",
+      "npm:@types/express@5.0.6",
       "@cloudflare/workers-types/2023-07-01"
     ]
   },
